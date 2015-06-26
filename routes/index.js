@@ -3,12 +3,18 @@ var router = express.Router();
 
 var quizController = require('../controllers/quiz_controller');
 
-/* GET home page. */
+// GET home page
 router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz' });
 });
 
+// GET quizes pages
 router.get('/quizes/question', quizController.question);
 router.get('/quizes/answer', quizController.answer);
+
+// GET author page 
+router.get('/author', function(req, res){
+  res.render('author');
+});
 
 module.exports = router;
