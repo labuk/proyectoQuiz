@@ -7,7 +7,6 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
-node_modules/
 
 # Windows Installer files
 *.cab
@@ -43,3 +42,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Node App
+node_modules/
+quiz.sqlite
