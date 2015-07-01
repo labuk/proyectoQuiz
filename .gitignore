@@ -45,3 +45,4 @@ Temporary Items
 # Node App
 node_modules/
 quiz.sqlite
+.env
