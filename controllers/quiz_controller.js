@@ -13,9 +13,19 @@ exports.load = function(req, res, next, quizId){
 
 // GET quizes
 exports.index = function(req, res){
+	if(req.query.search){
+		var search_string = req.query.search.replace(/ |\u0195|\xc3/g,'%');
+		var search_string = '%'+search_string+'%';
+		console.log('Search: '+search_string); 
+		models.Quiz.findAll({where: ["pregunta like ?", search_string], order:'pregunta ASC'}).then(function(quizes){
+			res.render('quizes/index',{ quizes: quizes});
+			console.log('Search results: '+quizes.length);
+
+		})
+	} else {
 	models.Quiz.findAll().then(function(quizes){
 		res.render('quizes/index',{ quizes: quizes});
-	}).catch(function(error){next(error);})	
+	}).catch(function(error){next(error);})	}
 };
 
 // GET /quizes/:id
@@ -31,3 +41,4 @@ exports.answer = function(req,res){
 	}
 	res.render('quizes/answer', {quiz: req.quiz, respuesta: resultado});
 };
+

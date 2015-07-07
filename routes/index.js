@@ -21,4 +21,9 @@ router.get('/author', function(req, res){
   res.render('author');
 });
 
+// GET search quiz 
+router.get('/quizes:', function(req, res){
+  res.render('author');
+});
+
 module.exports = router;
