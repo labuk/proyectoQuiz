@@ -4,12 +4,11 @@
 <% } %>
 </table>
 
-<form method="get" action="/quizes">
-	<p>Busqueda Quiz:</p>
-	<input type="text" name="search" value="palabras clave" />
-	<input type="submit" value="Enviar" />
-</form>
+<a href="/quizes/new"><button type="button">Crear pregunta</button></a>
 
 <form method="get" action="/quizes">
-	<input type="submit" value="Reiniciar Busqueda" />
+	<p>Busqueda Quiz:</p>
+	<input type="text" name="search" placeHolder="palabras clave" />
+	<input type="submit" value="Enviar" />
+	<a href="/quizes"><button type="button">Reiniciar</button></a>
 </form>
