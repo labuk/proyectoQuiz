@@ -10,8 +10,9 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz' , errors: []});
 });
 
-// Autoload de comandos con :quizId
+// Autoload de comandos
 router.param('quizId', quizController.load); //Si existe parametro quizId hace el autoload 
+router.param('commentId', commentController.load); //Si existe parametro commentId hace el autoload 
 
 // Definicion de rutas /quizes 
 router.get('/quizes', quizController.index);
@@ -26,6 +27,8 @@ router.delete('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizCont
 // Definicion de rutas /comment
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments', commentController.create);
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired,commentController.publish);
+	// debería ser pur ya que actualizamos los datos al hacer publish
 
 // Definicion de rutas de session
 router.get('/login', sessionController.new); // formulario login
