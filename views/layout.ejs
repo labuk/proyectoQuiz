@@ -29,15 +29,20 @@
 	<nav class="main" id="n1" role="navigation">
 	   <span><a href="/">Inicio</a></span>
 	   <span><a href="/quizes">Preguntas</a></span>
+	   <span><a href="/quizes/statistics">Estadísticas</a></span>
 	   <span><a href="/author">Créditos</a></span>
 	</nav>    
 
 	<section class="main" id="s1">
 	   <% console.log('Error: '+errors.length); if (errors.length) { %>
 		<span id='ErrorMsgs'>
-		Corregir errores: <br/>
 		   <% for (var i in errors) { %>
+			<% if (errors[i].message) { %>
+			Corregir errores: <br/>
 			<span> <%- errors[i].message %> </span><br/>
+			<% } else { %>
+			<span> <%- errors[i].mess_logout %> </span><br/>
+			<% } %>
 		   <% } %>
 		</span>
 	   <% } %>

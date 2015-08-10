@@ -23,6 +23,7 @@ router.post('/quizes/create', sessionController.loginRequired, quizController.cr
 router.get('/quizes/:quizId(\\d+)/edit', sessionController.loginRequired, quizController.edit); //edit quiz
 router.put('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizController.update); //put quiz
 router.delete('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizController.destroy); //delete quiz
+router.get('/quizes/statistics', quizController.statistics);
 
 // Definicion de rutas /comment
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);

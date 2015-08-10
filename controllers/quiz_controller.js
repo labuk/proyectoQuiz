@@ -30,7 +30,6 @@ exports.index = function(req, res){
 		res.render('quizes/index',{ quizes: quizes, errors: []});
 	}).catch(function(error){next(error);})	}
 };
-
 // GET /quizes/:quizid
 exports.show = function(req, res){
 	res.render('quizes/show',{ quiz: req.quiz, errors: []});
@@ -43,6 +42,25 @@ exports.answer = function(req,res){
 		resultado = 'Correcto';
 	}
 	res.render('quizes/answer', {quiz: req.quiz, respuesta: resultado, errors: []});
+};
+
+// GET /quizes/statictics
+exports.statistics = function(req,res){
+	console.log('Search and count');
+	var stats = {};
+	models.Quiz.count({
+	}).then(function(result_quiz){
+		stats.quiz = result_quiz;
+		console.log('var: ' + stats.quiz);
+		models.Comment.count({
+		}).then(function(result_comment){
+			stats.comment = result_comment;
+			console.log('var: ' + result_comment.length );
+			stats.comment_quiz = result_comment/stats.quiz;
+			console.log('var: ' + stats.comment_quiz);
+			res.render('quizes/statistics',{ statictics: stats, errors: []});
+		});
+	});
 };
 
 // GET /quizes/new
