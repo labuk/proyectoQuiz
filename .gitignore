@@ -47,4 +47,3 @@ node_modules/
 quiz.sqlite
 .env
 *.log
-certs/

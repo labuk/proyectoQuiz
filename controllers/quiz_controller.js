@@ -1,6 +1,9 @@
 // Importamos modelo DB
 var models = require('../models/models.js');
 
+// Cargamos Sequelize
+var sequelize = require('sequelize');
+
 // Autoload - Factoriza el código si la ruta incluye :quizId
 exports.load = function(req, res, next, quizId){
 	models.Quiz.find({
@@ -47,19 +50,21 @@ exports.answer = function(req,res){
 // GET /quizes/statictics
 exports.statistics = function(req,res){
 	console.log('Search and count');
+
+	// Se utiliza Promise.all para realizar consultas asíncronas en paralelo
 	var stats = {};
-	models.Quiz.count({
-	}).then(function(result_quiz){
-		stats.quiz = result_quiz;
-		console.log('var: ' + stats.quiz);
-		models.Comment.count({
-		}).then(function(result_comment){
-			stats.comment = result_comment;
-			console.log('var: ' + result_comment.length );
-			stats.comment_quiz = result_comment/stats.quiz;
-			console.log('var: ' + stats.comment_quiz);
-			res.render('quizes/statistics',{ statictics: stats, errors: []});
-		});
+	sequelize.Promise.all([
+  	   models.Quiz.count(),
+	   models.Comment.count(),
+	   models.Quiz.findAll({ include: [{model: models.Comment, required: true}] }),
+	]).then(function(result){
+		stats.quiz = result[0];
+		stats.comment = result[1];
+		stats.comment_quiz = result[1]/result[0];
+		stats.withComment = result[2].length;
+		stats.woutComment = result[0] - result[2].length;
+		res.render('quizes/statistics',{ statictics: stats, errors: []});
+
 	});
 };
 

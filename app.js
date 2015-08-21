@@ -54,6 +54,7 @@ app.use(function(req, res, next) {
 	//callback(new Error('Mas de 2 minutos sin actividad. La sessión se va a desconectar.'));
 	req.session.errors = [{"mess_logout": 'Mas de 2 minutos sin actividad. Vuelve a autentificarte.'}];
 	req.session.redir = "/login";
+	//res.render("/login")
 	res.redirect("/logout");
 	next();
 	//next(err);
